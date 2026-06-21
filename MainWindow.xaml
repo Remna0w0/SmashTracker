@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmashTracker"
         mc:Ignorable="d"
-        Title="SmashTracker" Height="500" Width="800" Background="#1E1E24"
-        Icon="SmashTracker.ico">
+        Title="SmashTracker" Height="500" Width="800" Background="#1E1E24">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Xolonium"/>
