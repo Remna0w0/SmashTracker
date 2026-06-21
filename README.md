@@ -8,3 +8,7 @@ SmashTracker is a simple Win and Loss logger as well as a place to take notes on
 * **Note Taking:** Every character has their own notes section, where you can type and save anything you want. 
 
 > All information is stored in a single local database file, created the first time the app is launched. **Be sure to take caution when working with this file. Deleting it will erase all history.**
+
+## Setup
+
+Download the zip folder from the release and run the exe. 
