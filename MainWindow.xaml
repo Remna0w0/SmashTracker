@@ -51,7 +51,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Margin="0,0,30,0">
-            <TextBlock Text="SELECT CHARACTER:" Margin="0,0,0,5"  FontSize="18"  FontWeight="Bold" TextDecorations="Underline"/>
+            <TextBlock Text="YOUR CHARACTER:" Margin="0,0,0,5"  FontSize="18"  FontWeight="Bold" TextDecorations="Underline"/>
 
             <ComboBox Name="CharacterDropdown" Width="250" HorizontalAlignment="Left" Margin="0,0,0,20" Height="30" Background="#FFA4B3ED" Foreground="Black" SelectionChanged="CharacterDropdown_SelectionChanged">
                 <ComboBox.ItemTemplate>
@@ -64,12 +64,26 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
+            <TextBlock Text="VS CHARACTER:" Margin="0,0,0,5"  FontSize="18"  FontWeight="Bold" TextDecorations="Underline"/>
+            
+            <ComboBox Name="VSDropdown" Width="250" HorizontalAlignment="Left" Margin="0,0,0,20" Height="30" Background="#FFA4B3ED" Foreground="Black" SelectionChanged="VSDropdown_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding ImagePath}" Width="25" Height="25" Margin="0,0,10,0"/>
+                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontFamily="Cascadia Code" FontSize="16" FontWeight="Bold"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            
+            
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                 <Button Name="WinButton" Content="ADD WIN" Width="110" Height="30" Margin="0,0,10,0" Click="WinButton_Click" Background="#2DEB85"/>
                 <Button Name="LoseButton" Content="ADD LOSS" Width="110" Height="30" Click="LoseButton_Click" Background="#FF3366"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,40">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                 <Button Name="RemoveWinButton" Content="DEL WIN" Width="110" Height="30" Margin="0,0,10,0" Click="RemoveWinButton_Click" Background="#FF16884B"/>
                 <Button Name="RemoveLoseButton" Content="DEL LOSS" Width="110" Height="30" Click="RemoveLoseButton_Click" Background="#FF7B152F"/>
             </StackPanel>
