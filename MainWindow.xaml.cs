@@ -84,6 +84,26 @@ namespace SmashTracker
             ShowTempMessage($"Recorded WIN: {character}.");
         }
 
+        private void RemoveWinButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CharacterDropdown.SelectedItem == null) return;
+
+            CharacterModel selectedChar = (CharacterModel)CharacterDropdown.SelectedItem;
+
+            string character = selectedChar.Name;
+
+            database.DelWin(character);
+            database.CalculateWinrate(character);
+
+            int wins = database.GetWins(character);
+            int losses = database.GetLosses(character);
+            int winrate = database.GetWinrate(character);
+
+            StatsDisplay.Text = $"Wins: {wins} | Losses: {losses} | Winrate: {winrate}%";
+
+            ShowTempMessage($"Deleted WIN: {character}.");
+        }
+
         private void LoseButton_Click(object sender, RoutedEventArgs e)
         {
             if (CharacterDropdown.SelectedItem == null) return;
@@ -102,6 +122,26 @@ namespace SmashTracker
             StatsDisplay.Text = $"Wins: {wins} | Losses: {losses} | Winrate: {winrate}%";
 
             ShowTempMessage($"Recorded LOSS: {character}.");
+        }
+
+        private void RemoveLoseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CharacterDropdown.SelectedItem == null) return;
+
+            CharacterModel selectedChar = (CharacterModel)CharacterDropdown.SelectedItem;
+
+            string character = selectedChar.Name;
+
+            database.DelLose(character);
+            database.CalculateWinrate(character);
+
+            int wins = database.GetWins(character);
+            int losses = database.GetLosses(character);
+            int winrate = database.GetWinrate(character);
+
+            StatsDisplay.Text = $"Wins: {wins} | Losses: {losses} | Winrate: {winrate}%";
+
+            ShowTempMessage($"Deleted LOSS: {character}.");
         }
 
         private async void ShowTempMessage(string message)

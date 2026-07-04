@@ -69,6 +69,11 @@
                 <Button Name="LoseButton" Content="ADD LOSS" Width="110" Height="30" Click="LoseButton_Click" Background="#FF3366"/>
             </StackPanel>
 
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,40">
+                <Button Name="RemoveWinButton" Content="DEL WIN" Width="110" Height="30" Margin="0,0,10,0" Click="RemoveWinButton_Click" Background="#FF16884B"/>
+                <Button Name="RemoveLoseButton" Content="DEL LOSS" Width="110" Height="30" Click="RemoveLoseButton_Click" Background="#FF7B152F"/>
+            </StackPanel>
+
             <TextBlock Name="OutputText" FontSize="14" Foreground="#2DEB85"/>
         </StackPanel>
 

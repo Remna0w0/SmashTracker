@@ -176,9 +176,35 @@ namespace SmashExpTracker
             Console.WriteLine($"Added a won match to {character}");
         }
 
+        public void DelWin(string character)
+        {
+            string winScript = @"UPDATE Characters SET Wins = Wins - 1, GamesPlayed = GamesPlayed - 1 WHERE CharacterName = @name";
+
+            using var connection = new SqliteConnection($"Data Source={_dbPath}");
+
+            connection.Execute(winScript, new
+            {
+                name = character
+            });
+            Console.WriteLine($"Deleted a won match from {character}");
+        }
+
         public void AddLose(string character)
         {
             string loseScript = @"UPDATE Characters SET Losses = Losses + 1, GamesPlayed = GamesPlayed + 1 WHERE CharacterName = @name";
+
+            using var connection = new SqliteConnection($"Data Source={_dbPath}");
+
+            connection.Execute(loseScript, new
+            {
+                name = character
+            });
+            Console.WriteLine($"Added a lost match to {character}");
+        }
+
+        public void DelLose(string character)
+        {
+            string loseScript = @"UPDATE Characters SET Losses = Losses - 1, GamesPlayed = GamesPlayed - 1 WHERE CharacterName = @name";
 
             using var connection = new SqliteConnection($"Data Source={_dbPath}");
 
@@ -197,6 +223,7 @@ namespace SmashExpTracker
             return db.ExecuteScalar<int>(getWins, new { name = character });
             
         }
+
 
         public int GetLosses(string character)
         {
