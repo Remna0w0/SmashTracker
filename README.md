@@ -1,17 +1,38 @@
 ﻿# SmashTracker
 
-SmashTracker is a simple Win and Loss logger as well as a place to take notes on every character in Smash Ultimate. 
+SmashTracker is a desktop user interface and local database tool built to log your match outcomes, analyze win rates, and keep detailed strategical notes for every character matchup in Super Smash Bros. Ultimate.
 
-## Features
-* **Character vs Character Selection:** There are two dropdowns, one to select your character and one to select the opponent's character. All stats and notes are individualized to that specific matchup, so you can be as percise as you want!
-> 📊 Fun Fact: With a complete roster of 86 fighters plus custom tracking placeholders, this application is built to dynamically handle up to 7,569 unique matchup combinations (including mirror matches), tracking distinct win rates, game counts, and performance notes for every single pair!
-* **Win and Loss Counter:** There are buttons for reporting wins and losses, and those will update your win percentage. There are also buttons to remove wins or losses in case of an missclick. The side panel will show you your total wins and losses, as well as the winrate.
-* **Note Taking:** Every character has their own notes section, where you can type and save anything you want. 
+## What's New in Version 2.2.5 🚀
 
-> All information is stored in a single local database file, created the first time the app is launched. **Be sure to take caution when working with this file. Deleting it will erase all history.**
+### 🔍 High-Performance Searchable Dropdowns
+* **Intelligent Sorting Filter**: Dropdowns now automatically sort in real-time as you type, instantly floating exact or prefix matches to the top of the roster list.
+* **Ultra-Responsive UX**: Eliminated typing lag and caret resetting by migrating the filtering mechanics to high-performance, in-memory LINQ queries, caching database lookups entirely.
+* **Seamless Backspacing**: Retained focus states so you can seamlessly backspace through a selected name to alter a search parameter without clearing the textbox layout entirely.
+* **Visual Polish**: Realigned selected elements for pixel-perfect centering, customized input fonts using `Cascadia Code`, and added an overlay rendering engine to preserve character stock icons directly on the editing surface.
 
-Note: All older versions are campatible version 2.0. Data created in older versions will be migrated to a single "Unknown" character, so that information can still be accessed.
+### 📈 Character Overall Analytics
+* **Global Performance Tracking**: Added a new **Character Overall** panel that calculates aggregate wins, aggregate losses, and total win rates across all matchups for your selected fighter.
+* **Dynamic Refreshes**: The dashboard automatically recalculates totals instantly whenever a win or loss is logged or altered.
 
-## Setup
+### 🛡️ Safety & Stability Fixes
+* **Misclick Underflow Protection**: Hardened the decrement logic (`DEL WIN` / `DEL LOSS`) to verify counts before updating SQLite, preventing database records from dropping below zero if pressed accidentally.
 
-Download the unzip the folder from the release and run the exe. If you're updating from an older version, be sure to unzip the folder in the same place as the older version, without deleting any files. This ensures you maintain all data already entered. 
+---
+
+## Core Features
+* **Granular Matchup Mapping**: Select your fighter and the opponent's character via custom dropdowns. Win rates, game volume, and notes are completely individualized to that unique pair.
+* **Precise Log Management**: Log new outcomes or roll back misclicks with dedicated `ADD WIN`, `ADD LOSS`, `DEL WIN`, and `DEL LOSS` actions.
+* **Fighter Matchup Notes**: An expansive, multi-line notes section for keeping match strategy records, combos, and frame data reminders tailored to specific opponents.
+
+> 📝 **Data Archiving Notice**: All application records are securely processed inside a single local SQLite database file (`SmashExpTracker.db`) generated on initial launch. **Deleting or displacing this file will permanently clear your record history.**
+
+### Backward Compatibility & Migrations
+All previous versions are completely compatible with version 2.2.5. Existing match records built on single-character architectures will automatically migrate safely to a structural `'UNKNOWN'` player identity row upon startup, preserving your notes and numbers intact.
+
+---
+
+## Setup & Installation
+
+1. Download and unzip the target platform package from the latest Releases tab.
+2. Run the executable file (`SmashTracker.exe`).
+3. **Upgrading?** Extract the contents directly over your previous folder path without moving or deleting the existing `SmashExpTracker.db` database file to ensure your match history safely carries forward.
