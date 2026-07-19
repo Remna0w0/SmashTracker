@@ -138,6 +138,7 @@ namespace SmashExpTracker
             int totalLosses = GetTotalLosses(character);
             int totalWins = GetTotalWins(character);
             int totalGames = totalWins + totalLosses;
+            if (totalGames <= 0) { return 0; }
 
             int totalWinrate = (totalWins *= 100) / totalGames;
 
