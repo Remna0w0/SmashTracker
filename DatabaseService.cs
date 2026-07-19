@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Data.Sqlite;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -117,6 +118,32 @@ namespace SmashExpTracker
             return characterList;
         }
 
+        public int GetTotalWins(string character)
+        {
+            using var db = this.GetConnection();
+            string winTotalScript = "SELECT SUM(Wins) FROM Matchups WHERE PlayerCharacter = @player";
+            return db.ExecuteScalar<int>(winTotalScript, new { player = character });
+        }
+
+        public int GetTotalLosses(string character)
+        {
+            using var db = this.GetConnection();
+            string lossTotalScript = "SELECT SUM(Losses) FROM Matchups WHERE PlayerCharacter = @player";
+            return db.ExecuteScalar<int>(lossTotalScript, new { player = character });
+        }
+
+        public int CalculateTotalWinrate(string character)
+        {
+            using var db = this.GetConnection();
+            int totalLosses = GetTotalLosses(character);
+            int totalWins = GetTotalWins(character);
+            int totalGames = totalWins + totalLosses;
+
+            int totalWinrate = (totalWins *= 100) / totalGames;
+
+            return totalWinrate;       
+        }
+
         public void AddWin(string character, string vsCharacter)
         {
             string winScript = @"
@@ -133,6 +160,7 @@ namespace SmashExpTracker
 
         public void DelWin(string character, string vsCharacter)
         {
+            if (GetWins(character, vsCharacter) == 0) { return; }
             string delWinScript = @"
                 UPDATE Matchups 
                 SET Wins = MAX(0, Wins - 1), 
@@ -160,6 +188,7 @@ namespace SmashExpTracker
 
         public void DelLose(string character, string vsCharacter)
         {
+            if (GetLosses(character, vsCharacter) == 0) {  return; }
             string delLoseScript = @"
                 UPDATE Matchups 
                 SET Losses = MAX(0, Losses - 1), 
@@ -247,6 +276,28 @@ namespace SmashExpTracker
                 Console.WriteLine($"Error during winrate sync: {ex.Message}");
             }
             Console.WriteLine("Done!");
+        }
+
+        public List<CharacterModel> FilterCharacters(string search)
+        {
+            Console.WriteLine($"Filtering by search: {search}");
+            using var db = this.GetConnection();
+
+            string filterCharacters = "SELECT CharacterName FROM Characters ORDER BY CASE WHEN CharacterName LIKE @searched THEN 0 ELSE 1 END";
+
+            List<string> names = db.Query<string>(filterCharacters, new { searched = search}).ToList();
+            List<CharacterModel> characterList = new List<CharacterModel>();
+            string iconDictionary = Path.Combine(baseDir, "Icons");
+
+            foreach (string name in names)
+            {
+                characterList.Add(new CharacterModel
+                {
+                    Name = name,
+                    ImagePath = Path.Combine(iconDictionary, $"{name.ToLower()}.png")
+                });
+            }
+            return characterList;
         }
 
         public class CharacterModel
